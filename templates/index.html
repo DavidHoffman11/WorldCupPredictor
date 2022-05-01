@@ -39,6 +39,7 @@
 
   table {
     align-content: center;
+    margin-left: 7%;
     border-radius: 10px;
     padding-top: 5%;
     font-weight: bolder;
@@ -46,9 +47,10 @@
 
   div {
     border-radius: 5px;
-    margin-left: 20%;
-    width: 30%;
-    
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 70%;
+    background-color: #7b8235;
   }
 
   h1 {
@@ -66,6 +68,7 @@
     background-size: cover;
     text-align: center;
     padding: 0px;
+    background-color: #26532a;
   }     
 </style>
 
@@ -86,7 +89,7 @@
           <th colspan="1">Team Rating</th>
       </tr>
     </thead>
-    <tr style="background-color: #D3D3D3">
+    <tr style="background-color: #92887c">
       <td><br>France</td>
       <td><input type="number" id="ATT1" name="ATT1" placeholder="85" required="required"></td>
       <td><input type="number" id="MID1" name="MID1" placeholder="86" required="required"></td>
@@ -99,7 +102,7 @@
         <option value="4">4 stars</option>
         <option value="5">5 stars</option></select></td>
     </tr>
-    <tr>
+    <tr style="background-color: #bdb5aa">
       <td>Germany</td>
         <td><input type="number" id="ATT2" name="ATT2" placeholder="83" required="required"></td>
         <td><input type="number" id="MID2" name="MID2" placeholder="85" required="required"></td>
@@ -112,7 +115,7 @@
           <option value="4">4 stars</option>
           <option value="5">5 stars</option></select></td>
     </tr>
-    <tr style="background-color: #D3D3D3">
+    <tr style="background-color: #92887c">
       <td>Portugal</td>
       <td><input type="number" id="ATT3" name="ATT3" placeholder="85" required="required"></td>
       <td><input type="number" id="MID3" name="MID3" placeholder="83" required="required"></td>
@@ -125,7 +128,7 @@
         <option value="4">4 stars</option>
         <option value="5">5 stars</option></select></td>
     </tr>
-    <tr>
+    <tr style="background-color: #bdb5aa">
       <td>Spain</td>
       <td><input type="number" id="ATT4" name="ATT4" placeholder="83" required="required"></td>
       <td><input type="number" id="MID4" name="MID4" placeholder="85" required="required"></td>
@@ -138,7 +141,7 @@
         <option value="4">4 stars</option>
         <option value="5">5 stars</option></select></td>
     </tr>
-    <tr style="background-color: #D3D3D3">
+    <tr style="background-color: #92887c">
       <td>England</td>
       <td><input type="number" id="ATT5" name="ATT5" placeholder="86" required="required"></td>
       <td><input type="number" id="MID5" name="MID5" placeholder="83" required="required"></td>
@@ -157,7 +160,7 @@
 </div>
     
 <!-- the predicted text -->
-<h3>{{ prediction_text }}</h3>
+<!-- <h3>{{ prediction_text }}</h3> -->
 
 </body>
 </html>
