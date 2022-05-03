@@ -7,36 +7,33 @@ import numpy as np
 import sklearn
 from sklearn.preprocessing import StandardScaler
 
-#create a Flask object
-app = Flask("car_model")
+# create a Flask object
+app = Flask("WorldCup_model")
 
-#load the ml model which we have saved earlier in .pkl format
-model = pickle.load(open('car_price_model.pkl', 'rb'))
+# load the ml model which we have saved earlier in .pkl format
+# model = pickle.load(open('world_cup_model.pkl', 'rb'))
 
-#define the route(basically url) to which we need to send http request
-#HTTP GET request method
+# define the route(basically url) to which we need to send http request
+# HTTP GET request method
 @app.route('/',methods=['GET'])
 
-#create a function Home that will return index.html(which contains html form)
-#index.html file is created seperately
+# HTTP POST request method
+# define the route for post method 
+@app.route("/predict", methods=['POST'])
+
+# create a function Home that will return index.html(which contains html form)
+# index.html file is created seperately
 def Home():
     return render_template('index.html')
 
-#creating object for StandardScaler
+# creating object for StandardScaler
 standard_to = StandardScaler()
 
-#HTTP POST request method
-#define the route for post method 
-@app.route("/predict", methods=['POST'])
-
-#define the predict function which is going to predict the results from ml model based on the given values through html form
+# define the predict function which is going to predict the results from ml model based on the given values through html form
 def predict():
-    #Fuel_type_Petrol is used in the html form and therefore we are initiating Fuel_Type_Diesel as zero 
-    Fuel_Type_Diesel=0
-    if request.method == 'POST':
 
-        #Use request.form to get the data from html form through post method.
-        #these all are nothing but features of our dataset(ml model)
+    if request.method == 'POST':
+        # Use request.form to get the data from html form through post method.
         Year = int(request.form['Year'])
         Year = 2020 - Year
         Present_Price=float(request.form['Present_Price'])
@@ -86,6 +83,6 @@ def predict():
 
 
 if __name__=="__main__":
-    #run method starts our web service
-    #Debug : as soon as I save anything in my structure, server should start again
+    # run method starts our web service
+    # Debug : as soon as I save anything in my structure, server should start again
     app.run(debug=True)

@@ -27,6 +27,7 @@
     border-radius: 4px;
     box-sizing: border-box;
     text-align: center;
+    font-weight: bolder;
   }
 
   input[type=submit] {
@@ -45,7 +46,7 @@
 
 
   input[type=submit]:hover {
-    background-color: orangered;
+    background-color: white;
   }
 
   table {
@@ -91,8 +92,8 @@
 <div>
   <!-- Html table allows user to manipulate values for prediction -->
   <table action="{{ url_for('predict')}}" method="post">
-    <thead>
-      <tr>
+    <thead style="background-color: black">
+      <tr style="color: white">
           <th colspan="1">Team</th>
           <th colspan="1">ATT</th>
           <th colspan="1">MID</th>
@@ -103,10 +104,10 @@
     </thead>
     <tr style="background-color: #92887c">
       <td><br>France</td>
-      <td><input type="number" id="ATT1" name="ATT1" placeholder="85"></td>
-      <td><input type="number" id="MID1" name="MID1" placeholder="86"></td>
-      <td><input type="number" id="DEF1" name="DEF1" placeholder="83"></td>
-      <td><input type="number" id="OVR1" name="OVR1" placeholder="85"></td>
+      <td><input type="number" id="ATT1" name="ATT1" value="85"></td>
+      <td><input type="number" id="MID1" name="MID1" value="86"></td>
+      <td><input type="number" id="DEF1" name="DEF1" value="83"></td>
+      <td><input type="number" id="OVR1" name="OVR1" value="85"></td>
       <td><select id="Team Rating1" name="Team Rating1">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -116,11 +117,11 @@
     </tr>
     <tr style="background-color: #bdb5aa">
       <td>Germany</td>
-        <td><input type="number" id="ATT2" name="ATT2" placeholder="83"></td>
-        <td><input type="number" id="MID2" name="MID2" placeholder="85"></td>
-        <td><input type="number" id="DEF2" name="DEF2" placeholder="80"></td>
-        <td><input type="number" id="OVR2" name="OVR2" placeholder="85"></td>
-        <td><select id="Team Rating2" name="Team Rating2" placeholder="5">
+        <td><input type="number" id="ATT2" name="ATT2" value="83"></td>
+        <td><input type="number" id="MID2" name="MID2" value="85"></td>
+        <td><input type="number" id="DEF2" name="DEF2" value="80"></td>
+        <td><input type="number" id="OVR2" name="OVR2" value="85"></td>
+        <td><select id="Team Rating2" name="Team Rating2">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -129,10 +130,10 @@
     </tr>
     <tr style="background-color: #92887c">
       <td>Portugal</td>
-      <td><input type="number" id="ATT3" name="ATT3" placeholder="85"></td>
-      <td><input type="number" id="MID3" name="MID3" placeholder="83"></td>
-      <td><input type="number" id="DEF3" name="DEF3" placeholder="85"></td>
-      <td><input type="number" id="OVR3" name="OVR3" placeholder="84"></td>
+      <td><input type="number" id="ATT3" name="ATT3" value="85"></td>
+      <td><input type="number" id="MID3" name="MID3" value="83"></td>
+      <td><input type="number" id="DEF3" name="DEF3" value="85"></td>
+      <td><input type="number" id="OVR3" name="OVR3" value="84"></td>
       <td><select id="Team Rating3" name="Team Rating3">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -142,10 +143,10 @@
     </tr>
     <tr style="background-color: #bdb5aa">
       <td>Spain</td>
-      <td><input type="number" id="ATT4" name="ATT4" placeholder="83"></td>
-      <td><input type="number" id="MID4" name="MID4" placeholder="85"></td>
-      <td><input type="number" id="DEF4" name="DEF4" placeholder="83"></td>
-      <td><input type="number" id="OVR4" name="OVR4" placeholder="84"></td>
+      <td><input type="number" id="ATT4" name="ATT4" value="83"></td>
+      <td><input type="number" id="MID4" name="MID4" value="85"></td>
+      <td><input type="number" id="DEF4" name="DEF4" value="83"></td>
+      <td><input type="number" id="OVR4" name="OVR4" value="84"></td>
       <td><select id="Team Rating4" name="Team Rating4">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -155,10 +156,10 @@
     </tr>
     <tr style="background-color: #92887c">
       <td>England</td>
-      <td><input type="number" id="ATT5" name="ATT5" placeholder="86"></td>
-      <td><input type="number" id="MID5" name="MID5" placeholder="83"></td>
-      <td><input type="number" id="DEF5" name="DEF5" placeholder="83"></td>
-      <td><input type="number" id="OVR5" name="OVR5" placeholder="83"></td>
+      <td><input type="number" id="ATT5" name="ATT5" value="86"></td>
+      <td><input type="number" id="MID5" name="MID5" value="83"></td>
+      <td><input type="number" id="DEF5" name="DEF5" value="83"></td>
+      <td><input type="number" id="OVR5" name="OVR5" value="83"></td>
       <td><select id="Team Rating5" name="Team Rating5">
         <option value="1">1</option>
         <option value="2">2</option>
