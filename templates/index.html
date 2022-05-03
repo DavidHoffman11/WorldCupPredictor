@@ -8,14 +8,25 @@
     
 <!-- Adding styles like color, height, width, border to our html page -->
 <style>
-  input[type=text], select {
-    width: 80%;
+  input[type=number] {
+    width: 70%;
     padding: 12px 20px;
-    margin: 8px 0;
+    margin: 8px 8px;
     display: inline-block;
     border-radius: 4px;
     box-sizing: border-box;
     font-weight: bolder;
+    text-align: center;
+    align-content: center;
+  }
+
+  select {
+    width: 70%;
+    margin: 8px 8px;
+    display: inline-block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-align: center;
   }
 
   input[type=submit] {
@@ -39,9 +50,10 @@
 
   table {
     align-content: center;
-    margin-left: 7%;
+    margin: 25px 25px;
     border-radius: 10px;
     padding-top: 5%;
+    box-sizing: border-box;
     font-weight: bolder;
   }
 
@@ -91,72 +103,72 @@
     </thead>
     <tr style="background-color: #92887c">
       <td><br>France</td>
-      <td><input type="number" id="ATT1" name="ATT1" placeholder="85" required="required"></td>
-      <td><input type="number" id="MID1" name="MID1" placeholder="86" required="required"></td>
-      <td><input type="number" id="DEF1" name="DEF1" placeholder="83" required="required"></td>
-      <td><input type="number" id="OVR1" name="OVR1" placeholder="85" required="required"></td>
+      <td><input type="number" id="ATT1" name="ATT1" placeholder="85"></td>
+      <td><input type="number" id="MID1" name="MID1" placeholder="86"></td>
+      <td><input type="number" id="DEF1" name="DEF1" placeholder="83"></td>
+      <td><input type="number" id="OVR1" name="OVR1" placeholder="85"></td>
       <td><select id="Team Rating1" name="Team Rating1">
-        <option value="1">1 star</option>
-        <option value="2">2 stars</option>
-        <option value="3">3 stars</option>
-        <option value="4">4 stars</option>
-        <option value="5">5 stars</option></select></td>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5" selected>5</option></select></td>
     </tr>
     <tr style="background-color: #bdb5aa">
       <td>Germany</td>
-        <td><input type="number" id="ATT2" name="ATT2" placeholder="83" required="required"></td>
-        <td><input type="number" id="MID2" name="MID2" placeholder="85" required="required"></td>
-        <td><input type="number" id="DEF2" name="DEF2" placeholder="80" required="required"></td>
-        <td><input type="number" id="OVR2" name="OVR2" placeholder="85" required="required"></td>
-        <td><select id="Team Rating2" name="Team Rating2">
-          <option value="1">1 star</option>
-          <option value="2">2 stars</option>
-          <option value="3">3 stars</option>
-          <option value="4">4 stars</option>
-          <option value="5">5 stars</option></select></td>
+        <td><input type="number" id="ATT2" name="ATT2" placeholder="83"></td>
+        <td><input type="number" id="MID2" name="MID2" placeholder="85"></td>
+        <td><input type="number" id="DEF2" name="DEF2" placeholder="80"></td>
+        <td><input type="number" id="OVR2" name="OVR2" placeholder="85"></td>
+        <td><select id="Team Rating2" name="Team Rating2" placeholder="5">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5" selected>5</option></select></td>
     </tr>
     <tr style="background-color: #92887c">
       <td>Portugal</td>
-      <td><input type="number" id="ATT3" name="ATT3" placeholder="85" required="required"></td>
-      <td><input type="number" id="MID3" name="MID3" placeholder="83" required="required"></td>
-      <td><input type="number" id="DEF3" name="DEF3" placeholder="85" required="required"></td>
-      <td><input type="number" id="OVR3" name="OVR3" placeholder="84" required="required"></td>
+      <td><input type="number" id="ATT3" name="ATT3" placeholder="85"></td>
+      <td><input type="number" id="MID3" name="MID3" placeholder="83"></td>
+      <td><input type="number" id="DEF3" name="DEF3" placeholder="85"></td>
+      <td><input type="number" id="OVR3" name="OVR3" placeholder="84"></td>
       <td><select id="Team Rating3" name="Team Rating3">
-        <option value="1">1 star</option>
-        <option value="2">2 stars</option>
-        <option value="3">3 stars</option>
-        <option value="4">4 stars</option>
-        <option value="5">5 stars</option></select></td>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5" selected>5</option></select></td>
     </tr>
     <tr style="background-color: #bdb5aa">
       <td>Spain</td>
-      <td><input type="number" id="ATT4" name="ATT4" placeholder="83" required="required"></td>
-      <td><input type="number" id="MID4" name="MID4" placeholder="85" required="required"></td>
-      <td><input type="number" id="DEF4" name="DEF4" placeholder="83" required="required"></td>
-      <td><input type="number" id="OVR4" name="OVR4" placeholder="84" required="required"></td>
+      <td><input type="number" id="ATT4" name="ATT4" placeholder="83"></td>
+      <td><input type="number" id="MID4" name="MID4" placeholder="85"></td>
+      <td><input type="number" id="DEF4" name="DEF4" placeholder="83"></td>
+      <td><input type="number" id="OVR4" name="OVR4" placeholder="84"></td>
       <td><select id="Team Rating4" name="Team Rating4">
-        <option value="1">1 star</option>
-        <option value="2">2 stars</option>
-        <option value="3">3 stars</option>
-        <option value="4">4 stars</option>
-        <option value="5">5 stars</option></select></td>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5" selected>5</option></select></td>
     </tr>
     <tr style="background-color: #92887c">
       <td>England</td>
-      <td><input type="number" id="ATT5" name="ATT5" placeholder="86" required="required"></td>
-      <td><input type="number" id="MID5" name="MID5" placeholder="83" required="required"></td>
-      <td><input type="number" id="DEF5" name="DEF5" placeholder="83" required="required"></td>
-      <td><input type="number" id="OVR5" name="OVR5" placeholder="83" required="required"></td>
+      <td><input type="number" id="ATT5" name="ATT5" placeholder="86"></td>
+      <td><input type="number" id="MID5" name="MID5" placeholder="83"></td>
+      <td><input type="number" id="DEF5" name="DEF5" placeholder="83"></td>
+      <td><input type="number" id="OVR5" name="OVR5" placeholder="83"></td>
       <td><select id="Team Rating5" name="Team Rating5">
-        <option value="1">1 star</option>
-        <option value="2">2 stars</option>
-        <option value="3">3 stars</option>
-        <option value="4">4 stars</option>
-        <option value="5">5 stars</option></select></td>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5" selected>5</option></select></td>
     </tr>
   </table>
   <!-- submit button -->           
-  <input type="submit" value="Calculate Selling Price">
+  <input type="submit" value="Calculate World Cup Winner">
 </div>
     
 <!-- the predicted text -->
