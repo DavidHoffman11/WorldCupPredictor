@@ -1,7 +1,5 @@
 #import required packages
-from zlib import DEF_BUF_SIZE
 from flask import Flask, render_template, request
-import jsonify
 import requests
 import pickle
 import numpy as np
@@ -45,15 +43,15 @@ def predict():
         
         prediction=model.predict([[game]])
         
-        #condition for invalid values
+        # condition for invalid values
         if prediction<0:
             return render_template('index.html',prediction_text="Unable to compute result")
         
-        #condition for prediction when values are valid
+        # condition for prediction when values are valid
         else:
             return render_template('index.html',prediction_text="Using given data, {} will win the World Cup".format(prediction))
         
-    #html form to be displayed on screen when no values are inserted; without any output or prediction
+    # html form to be displayed on screen when no values are inserted; without any output or prediction
     else:
         return render_template('index.html')
 
