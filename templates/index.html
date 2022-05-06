@@ -8,63 +8,80 @@
     
 <!-- Adding styles like color, height, width, border to our html page -->
 <style>
+  input {
+    width: 70%;
+    padding: 12px 20px;
+    display: inline-block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-weight: bolder;
+    text-align: center;
+    align-content: center;
+  }
+
+  select {
+    width: 70%;
+    margin: 8px 8px;
+    display: inline-block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-align: center;
+    font-weight: bolder;
+  }
+
+  input[type=submit] {
+    width: 80%;
+    background-color: goldenrod;
+    color:black;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size:100;
+    font-weight: bolder;
+    text-align: center;
+  }
 
 
-input[type=text], select {
-  width: 80%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border-radius: 4px;
-  box-sizing: border-box;
-  font-weight: bolder;
-}
+  input[type=submit]:hover {
+    background-color: white;
+  }
 
-input[type=submit] {
-  width: 80%;
-  background-color: goldenrod;
-  color:black;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size:100;
-  font-weight: bolder;
-}
-
-
-input[type=submit]:hover {
-  background-color: orangered;
-}
-form{
+  table {
+    align-content: center;
+    margin: 25px 25px;
     border-radius: 10px;
     padding-top: 5%;
+    box-sizing: border-box;
     font-weight: bolder;
-}
-div {
- 
-  border-radius: 5px;
-  margin-left: 35%;
-  width: 30%;
-  
-}
-h1{
+  }
+
+  div {
+    border-radius: 5px;
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 70%;
+    background-color: #7b8235;
+  }
+
+  h1 {
     color: goldenrod;
     font-size: 40px;
     font-weight: bolder;
-}
-h3{
-  color: white;
-}
+  }
 
-body {
-            background-repeat: no-repeat;
-            background-size: cover;
-            text-align: center;
-            padding: 0px;
-        }
-       
+  h3 {
+    color: white;
+  }
+
+  body {
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    padding: 0px;
+    background-color: #26532a;
+  }     
 </style>
 
 <body>
@@ -72,47 +89,248 @@ body {
 <h1>World Cup Prediction</h1>
 
 <div>
- <!-- Html form which will get all the values from user -->
- <form action="{{ url_for('predict')}}" method="post" style="background-color:#E6E6FA">
-
-<label for="Team">Team</label><br>
-<input type="text" id="Team" name="Team" placeholder="Brazil" required="required"><br>
-<label for="Attk_Rating">Attack Rating</label><br>
-<input type="text" id="Attk_Rating" name="Attk_Rating" placeholder="77" required="required"><br>
-<label for="Dfs_Rating">Defense Rating</label><br>
-<input type="text" id="Dfs_Rating" name="Dfs_Rating" placeholder="71" required="required"><br>
-     
-<!-- drop down options are provided for the categorical features -->
-<label for="Owner">No. of owners</label><br>
-<select id="owner" name="Owner">
-      <option value="0">0</option>
-      <option value="1">1</option>
-      <option value="3">3</option>
-    </select><br>
-<label for="Fuel_Type_Petrol">Fuel</label><br>
-    <select id="Fuel_Type_Petrol" name="Fuel_Type_Petrol" required="required">
-      <option value="Petrol">petrol</option>
-      <option value="Diesel">diesel</option>
-      <option value="Cng">cng</option>
-    </select><br>
-<label for="Seller_Type_Individual">Owner type</label><br>
-    <select id="Seller_Type_Individual" name="Seller_Type_Individual" required="required">
-      <option value="dealer">dealer</option>
-      <option value="individual">individual</option>
-      </select><br>
-<label for="Transmission_Mannual">Transmission type</label><br>
-    <select id="Transmission_Mannual" name="Transmission_Mannual" required="required">
-      <option value="mannual car">mannual car</option>
-      <option value="automatic car">automatic car</option>
-     </select> <br>
-     
-<!-- submit button -->           
-<input type="submit" value="Calculate Selling Price">
-</form>
+  <!-- Html table allows user to manipulate values for prediction -->
+  <table action="{{ url_for('predict')}}" method="post">
+    <thead style="background-color: black">
+      <tr style="color: white">
+          <th colspan="1">Team</th>
+          <th colspan="1">ATT</th>
+          <th colspan="1">MID</th>
+          <th colspan="1">DEF</th>
+          <th colspan="1">OVR</th>
+      </tr>
+    </thead>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team1" name="Team1" value="France"></td>
+      <td><input type="number" id="ATT1" name="ATT1" value="85"></td>
+      <td><input type="number" id="MID1" name="MID1" value="86"></td>
+      <td><input type="number" id="DEF1" name="DEF1" value="83"></td>
+      <td><input type="number" id="OVR1" name="OVR1" value="85"></td>
+    </tr>
+    <tr style="background-color: #bdb5aa">
+      <td><input type="text" id="Team2" name="Team2" value="Germany"></td>
+        <td><input type="number" id="ATT2" name="ATT2" value="83"></td>
+        <td><input type="number" id="MID2" name="MID2" value="85"></td>
+        <td><input type="number" id="DEF2" name="DEF2" value="80"></td>
+        <td><input type="number" id="OVR2" name="OVR2" value="85"></td>
+    </tr>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team3" name="Team3" value="Portugal"></td>
+      <td><input type="number" id="ATT3" name="ATT3" value="85"></td>
+      <td><input type="number" id="MID3" name="MID3" value="83"></td>
+      <td><input type="number" id="DEF3" name="DEF3" value="85"></td>
+      <td><input type="number" id="OVR3" name="OVR3" value="84"></td>
+    </tr>
+    <tr style="background-color: #bdb5aa">
+      <td><input type="text" id="Team4" name="Team4" value="Spain"></td>
+      <td><input type="number" id="ATT4" name="ATT4" value="83"></td>
+      <td><input type="number" id="MID4" name="MID4" value="85"></td>
+      <td><input type="number" id="DEF4" name="DEF4" value="83"></td>
+      <td><input type="number" id="OVR4" name="OVR4" value="84"></td>
+    </tr>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team5" name="Team5" value="England"></td>
+      <td><input type="number" id="ATT5" name="ATT5" value="86"></td>
+      <td><input type="number" id="MID5" name="MID5" value="83"></td>
+      <td><input type="number" id="DEF5" name="DEF5" value="83"></td>
+      <td><input type="number" id="OVR5" name="OVR5" value="83"></td>
+    </tr>
+    <tr style="background-color: #bdb5aa">
+      <td><input type="text" id="Team6" name="Team6" value="Argentina"></td>
+      <td><input type="number" id="ATT6" name="ATT6" value="86"></td>
+      <td><input type="number" id="MID6" name="MID6" value="81"></td>
+      <td><input type="number" id="DEF6" name="DEF6" value="81"></td>
+      <td><input type="number" id="OVR6" name="OVR6" value="83"></td>
+    </tr>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team7" name="Team7" value="Belgium"></td>
+      <td><input type="number" id="ATT7" name="ATT7" value="83"></td>
+      <td><input type="number" id="MID7" name="MID7" value="82"></td>
+      <td><input type="number" id="DEF7" name="DEF7" value="80"></td>
+      <td><input type="number" id="OVR7" name="OVR7" value="82"></td>
+    </tr>
+    <tr style="background-color: #bdb5aa">
+      <td><input type="text" id="Team8" name="Team8" value="USA"></td>
+      <td><input type="number" id="ATT8" name="ATT8" value="75"></td>
+      <td><input type="number" id="MID8" name="MID8" value="75"></td>
+      <td><input type="number" id="DEF8" name="DEF8" value="74"></td>
+      <td><input type="number" id="OVR8" name="OVR8" value="75"></td>
+    </tr>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team9" name="Team9" value="Wales"></td>
+      <td><input type="number" id="ATT9" name="ATT9" value="74"></td>
+      <td><input type="number" id="MID9" name="MID9" value="74"></td>
+      <td><input type="number" id="DEF9" name="DEF9" value="72"></td>
+      <td><input type="number" id="OVR9" name="OVR9" value="74"></td>
+    </tr>
+    <tr style="background-color: #bdb5aa">
+      <td><input type="text" id="Team10" name="Team10" value="Brazil"></td>
+      <td><input type="number" id="ATT10" name="ATT10" value="80"></td>
+      <td><input type="number" id="MID10" name="MID10" value="80"></td>
+      <td><input type="number" id="DEF10" name="DEF10" value="80"></td>
+      <td><input type="number" id="OVR10" name="OVR10" value="80"></td>
+    </tr>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team11" name="Team11" value="Denmark"></td>
+      <td><input type="number" id="ATT11" name="ATT11" value="77"></td>
+      <td><input type="number" id="MID11" name="MID11" value="78"></td>
+      <td><input type="number" id="DEF11" name="DEF11" value="79"></td>
+      <td><input type="number" id="OVR11" name="OVR11" value="79"></td>
+    </tr>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team12" name="Team12" value="Mexico"></td>
+      <td><input type="number" id="ATT12" name="ATT12" value="80"></td>
+      <td><input type="number" id="MID12" name="MID12" value="78"></td>
+      <td><input type="number" id="DEF12" name="DEF12" value="74"></td>
+      <td><input type="number" id="OVR12" name="OVR12" value="77"></td>
+    </tr>
+    <tr style="background-color: #bdb5aa">
+      <td><input type="text" id="Team13" name="Team13" value="Qatar"></td>
+      <td><input type="number" id="ATT13" name="ATT13" value="77"></td>
+      <td><input type="number" id="MID13" name="MID13" value="77"></td>
+      <td><input type="number" id="DEF13" name="DEF13" value="77"></td>
+      <td><input type="number" id="OVR13" name="OVR13" value="77"></td>
+    </tr>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team14" name="Team14" value="Ecuador"></td>
+      <td><input type="number" id="ATT14" name="ATT14" value="77"></td>
+      <td><input type="number" id="MID14" name="MID14" value="77"></td>
+      <td><input type="number" id="DEF14" name="DEF14" value="77"></td>
+      <td><input type="number" id="OVR14" name="OVR14" value="77"></td>
+    </tr>
+    <tr style="background-color: #bdb5aa">
+      <td><input type="text" id="Team15" name="Team15" value="Netherlands"></td>
+      <td><input type="number" id="ATT15" name="ATT15" value="81"></td>
+      <td><input type="number" id="MID15" name="MID15" value="82"></td>
+      <td><input type="number" id="DEF15" name="DEF15" value="83"></td>
+      <td><input type="number" id="OVR15" name="OVR15" value="82"></td>
+    </tr>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team16" name="Team16" value="Senegal"></td>
+      <td><input type="number" id="ATT16" name="ATT16" value="77"></td>
+      <td><input type="number" id="MID16" name="MID16" value="77"></td>
+      <td><input type="number" id="DEF16" name="DEF16" value="77"></td>
+      <td><input type="number" id="OVR16" name="OVR16" value="77"></td>
+    </tr>
+    <tr style="background-color: #bdb5aa">
+      <td><input type="text" id="Team17" name="Team17" value="Tunisia"></td>
+      <td><input type="number" id="ATT17" name="ATT17" value="77"></td>
+      <td><input type="number" id="MID17" name="MID17" value="77"></td>
+      <td><input type="number" id="DEF17" name="DEF17" value="77"></td>
+      <td><input type="number" id="OVR17" name="OVR17" value="77"></td>
+    </tr>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team18" name="Team18" value="Peru"></td>
+      <td><input type="number" id="ATT18" name="ATT18" value="77"></td>
+      <td><input type="number" id="MID18" name="MID18" value="77"></td>
+      <td><input type="number" id="DEF18" name="DEF18" value="77"></td>
+      <td><input type="number" id="OVR18" name="OVR18" value="77"></td>
+    </tr>
+    <tr style="background-color: #bdb5aa">
+      <td><input type="text" id="Team19" name="Team19" value="Iran"></td>
+      <td><input type="number" id="ATT19" name="ATT19" value="77"></td>
+      <td><input type="number" id="MID19" name="MID19" value="77"></td>
+      <td><input type="number" id="DEF19" name="DEF19" value="77"></td>
+      <td><input type="number" id="OVR19" name="OVR19" value="77"></td>
+    </tr>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team20" name="Team20" value="Saudi Arabia"></td>
+      <td><input type="number" id="ATT20" name="ATT20" value="77"></td>
+      <td><input type="number" id="MID20" name="MID20" value="77"></td>
+      <td><input type="number" id="DEF20" name="DEF20" value="77"></td>
+      <td><input type="number" id="OVR20" name="OVR20" value="77"></td>
+    </tr>
+    <tr style="background-color: #bdb5aa">
+      <td><input type="text" id="Team21" name="Team21" value="Japan"></td>
+      <td><input type="number" id="ATT21" name="ATT21" value="77"></td>
+      <td><input type="number" id="MID21" name="MID21" value="77"></td>
+      <td><input type="number" id="DEF21" name="DEF21" value="77"></td>
+      <td><input type="number" id="OVR21" name="OVR21" value="77"></td>
+    </tr>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team22" name="Team22" value="Costa Rica"></td>
+      <td><input type="number" id="ATT22" name="ATT22" value="77"></td>
+      <td><input type="number" id="MID22" name="MID22" value="77"></td>
+      <td><input type="number" id="DEF22" name="DEF22" value="77"></td>
+      <td><input type="number" id="OVR22" name="OVR22" value="77"></td>
+    </tr>
+    <tr style="background-color: #bdb5aa">
+      <td><input type="text" id="Team23" name="Team23" value="Canada"></td>
+      <td><input type="number" id="ATT23" name="ATT23" value="75"></td>
+      <td><input type="number" id="MID23" name="MID23" value="73"></td>
+      <td><input type="number" id="DEF23" name="DEF23" value="70"></td>
+      <td><input type="number" id="OVR23" name="OVR23" value="73"></td>
+    </tr>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team24" name="Team24" value="Morocco"></td>
+      <td><input type="number" id="ATT24" name="ATT24" value="77"></td>
+      <td><input type="number" id="MID24" name="MID24" value="77"></td>
+      <td><input type="number" id="DEF24" name="DEF24" value="77"></td>
+      <td><input type="number" id="OVR24" name="OVR24" value="77"></td>
+    </tr>
+    <tr style="background-color: #bdb5aa">
+      <td><input type="text" id="Team25" name="Team25" value="Croatia"></td>
+      <td><input type="number" id="ATT25" name="ATT25" value="77"></td>
+      <td><input type="number" id="MID25" name="MID25" value="77"></td>
+      <td><input type="number" id="DEF25" name="DEF25" value="77"></td>
+      <td><input type="number" id="OVR25" name="OVR25" value="77"></td>
+    </tr>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team26" name="Team26" value="Serbia"></td>
+      <td><input type="number" id="ATT26" name="ATT26" value="77"></td>
+      <td><input type="number" id="MID26" name="MID26" value="77"></td>
+      <td><input type="number" id="DEF26" name="DEF26" value="77"></td>
+      <td><input type="number" id="OVR26" name="OVR26" value="77"></td>
+    </tr>
+    <tr style="background-color: #bdb5aa">
+      <td><input type="text" id="Team27" name="Team27" value="Switzerland"></td>
+      <td><input type="number" id="ATT27" name="ATT27" value="77"></td>
+      <td><input type="number" id="MID27" name="MID27" value="77"></td>
+      <td><input type="number" id="DEF27" name="DEF27" value="77"></td>
+      <td><input type="number" id="OVR27" name="OVR27" value="77"></td>
+    </tr>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team28" name="Team28" value="Cameroon"></td>
+      <td><input type="number" id="ATT28" name="ATT28" value="77"></td>
+      <td><input type="number" id="MID28" name="MID28" value="77"></td>
+      <td><input type="number" id="DEF28" name="DEF28" value="77"></td>
+      <td><input type="number" id="OVR28" name="OVR28" value="77"></td>
+    </tr>
+    <tr style="background-color: #bdb5aa">
+      <td><input type="text" id="Team29" name="Team29" value="Ghana"></td>
+      <td><input type="number" id="ATT29" name="ATT29" value="77"></td>
+      <td><input type="number" id="MID29" name="MID29" value="77"></td>
+      <td><input type="number" id="DEF29" name="DEF29" value="77"></td>
+      <td><input type="number" id="OVR29" name="OVR29" value="77"></td>
+    </tr>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team30" name="Team30" value="Poland"></td>
+      <td><input type="number" id="ATT30" name="ATT30" value="81"></td>
+      <td><input type="number" id="MID30" name="MID30" value="74"></td>
+      <td><input type="number" id="DEF30" name="DEF30" value="75"></td>
+      <td><input type="number" id="OVR30" name="OVR30" value="77"></td>
+    </tr>
+    <tr style="background-color: #bdb5aa">
+      <td><input type="text" id="Team31" name="Team31" value="Uruguay"></td>
+      <td><input type="number" id="ATT31" name="ATT31" value="77"></td>
+      <td><input type="number" id="MID31" name="MID31" value="77"></td>
+      <td><input type="number" id="DEF31" name="DEF31" value="77"></td>
+      <td><input type="number" id="OVR31" name="OVR31" value="77"></td>
+    </tr>
+    <tr style="background-color: #92887c">
+      <td><input type="text" id="Team32" name="Team32" value="Korea Republic"></td>
+      <td><input type="number" id="ATT32" name="ATT32" value="77"></td>
+      <td><input type="number" id="MID32" name="MID32" value="77"></td>
+      <td><input type="number" id="DEF32" name="DEF32" value="77"></td>
+      <td><input type="number" id="OVR32" name="OVR32" value="77"></td>
+    </tr>
+  </table>
+  <!-- submit button -->           
+  <input type="submit" value="Calculate World Cup Winner">
 </div>
     
 <!-- the predicted text -->
-<h3>{{ prediction_text }}</h3>
+<!-- <h3>{{ prediction_text }}</h3> -->
 
 </body>
 </html>
