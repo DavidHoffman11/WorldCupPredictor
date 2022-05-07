@@ -144,7 +144,7 @@ def getTeamsAdvancing(worldCup):
             pointsMost, pointsSec, ovrMost, ovrSec, topTeam, secTeam = 0, 0, 0, 0, None, None
     return teamsAdvancing
 
-def simulateKnockOutGame(teamName1, teamName2):
+def simulateKnockOutGame(teamName1, teamName2, worldCup):
     predictor = pd.DataFrame(columns = ['att', 'mid', 'def', 'ovr'])
     team1WC = worldCup[worldCup['Team'] == teamName1]
     team2WC = worldCup[worldCup['Team'] == teamName2]
@@ -170,7 +170,7 @@ def simulateKnockOutGame(teamName1, teamName2):
             # teamName2 wins in ET/PKs
             return teamName2
 
-def runKnockOutStage(teamsAdvancing):
+def runKnockOutStage(teamsAdvancing, worldCup):
     a1 = teamsAdvancing[0][0]
     a2 = teamsAdvancing[0][1]
     b1 = teamsAdvancing[1][0]
@@ -204,17 +204,17 @@ def runKnockOutStage(teamsAdvancing):
                 predictor = pd.DataFrame(columns=['att', 'mid', 'def', 'ovr'])
                 team1 = game[0]
                 team2 = game[1]
-                winner = simulateKnockOutGame(team1, team2)
+                winner = simulateKnockOutGame(team1, team2, worldCup)
                 if qIdx == 0:
                     q1 = winner
                 else:
-                    toSemis = simulateKnockOutGame(q1, winner)
+                    toSemis = simulateKnockOutGame(q1, winner, worldCup)
                     semis.append(toSemis)
                 qIdx += 1
 
-    final1 = simulateKnockOutGame(semis[0], semis[1])
-    final2 = simulateKnockOutGame(semis[2], semis[3])
-    champion = simulateKnockOutGame(final1, final2)
+    final1 = simulateKnockOutGame(semis[0], semis[1], worldCup)
+    final2 = simulateKnockOutGame(semis[2], semis[3], worldCup)
+    champion = simulateKnockOutGame(final1, final2, worldCup)
     return champion
 
 # define the predict function which is going to predict the results from ml model based on the given values through html form
@@ -420,7 +420,7 @@ def predict():
         worldCup = createWorldCupByGroup(game)
         worldCup = runGroupStage(worldCup)
         teamsAdvancing = getTeamsAdvancing(worldCup)
-        prediction = runKnockOutStage(teamsAdvancing)
+        prediction = runKnockOutStage(teamsAdvancing, worldCup)
         #prediction=model.predict([[game]])
         
         # condition for invalid values
