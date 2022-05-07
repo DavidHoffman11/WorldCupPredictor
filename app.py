@@ -15,14 +15,14 @@ model = pickle.load(open('world_cup_model.pkl', 'rb'))
 # HTTP GET request method
 @app.route('/',methods=['GET'])
 
-# HTTP POST request method
-# define the route for post method 
-@app.route("/predict", methods=['POST'])
-
 # create a function Home that will return index.html(which contains html form)
 # index.html file is created seperately
 def Home():
     return render_template('index.html')
+
+# HTTP POST request method
+# define the route for post method 
+@app.route("/predict", methods=['POST'])
 
 # define the predict function which is going to predict the results from ml model based on the given values through html form
 def predict():
