@@ -24,6 +24,199 @@ def Home():
 # define the route for post method 
 @app.route("/predict", methods=['POST'])
 
+# Create worldCup dataframe
+def createWorldCupByGroup(game):
+    groupA = ['Qatar', 'Ecuador', 'Netherlands', 'Senegal']
+    groupB = ['England', 'Iran', 'USA', 'Wales']  # not sure w Wales
+    groupC = ['Argentina', 'Poland', 'Mexico', 'Saudi Arabia']
+    groupD = ['France', 'Denmark', 'Tunisia', 'Peru']  # Peru not sure
+    groupE = ['Spain', 'Germany', 'Japan', 'Costa Rica']  # Costa rica not sure
+    groupF = ['Belgium', 'Canada', 'Morocco', 'Croatia']
+    groupG = ['Brazil', 'Serbia', 'Switzerland', 'Cameroon']
+    groupH = ['Portugal', 'Ghana', 'Uruguay', 'Korea Republic']
+
+    groupDict = {'A': groupA, 'B': groupB, 'C': groupC, 'D': groupD, 'E': groupE,
+                 'F': groupF, 'G': groupG, 'H': groupH}
+    worldCup = pd.DataFrame(columns=['Team', 'Points', 'Group', 'att', 'mid', 'def', 'ovr'])
+
+    teamsNotFound = []
+    idx = 0
+    for i in range(8):
+        groupLetter = 'A'
+        groupLetter = chr(ord(groupLetter) + i)
+        group = groupDict[groupLetter]
+        for team in group:
+            worldCup.at[idx, 'Team'] = team
+            worldCup.at[idx, 'Points'] = 0
+            worldCup.at[idx, 'Group'] = groupLetter
+            gameIdx = np.where(game['Team'] == team)
+            if len(dataIdx[0]) == 0:
+                # team not in game, set to 75
+                worldCup.at[idx, 'att'] = 75
+                worldCup.at[idx, 'mid'] = 75
+                worldCup.at[idx, 'def'] = 75
+                worldCup.at[idx, 'ovr'] = 75
+            else:
+                # found in game
+                att = game.at[gameIdx[0][0], 'ATT']
+                mid = game.at[gameIdx[0][0], 'MID']
+                defRate = game.at[gameIdx[0][0], 'DEF']
+                ovr = game.at[gameIdx[0][0], 'OVR']
+
+                worldCup.at[idx, 'att'] = att
+                worldCup.at[idx, 'mid'] = mid
+                worldCup.at[idx, 'def'] = defRate
+                worldCup.at[idx, 'ovr'] = ovr
+            idx += 1
+    return worldCup
+
+# Run the group stage with the dataframe passed in for each group
+def runGroupStage(worldCup):
+    groupA = ['Qatar', 'Ecuador', 'Netherlands', 'Senegal']
+    groupB = ['England', 'Iran', 'USA', 'Wales']  # not sure w Wales
+    groupC = ['Argentina', 'Poland', 'Mexico', 'Saudi Arabia']
+    groupD = ['France', 'Denmark', 'Tunisia', 'Peru']  # Peru not sure
+    groupE = ['Spain', 'Germany', 'Japan', 'Costa Rica']  # Costa rica not sure
+    groupF = ['Belgium', 'Canada', 'Morocco', 'Croatia']
+    groupG = ['Brazil', 'Serbia', 'Switzerland', 'Cameroon']
+    groupH = ['Portugal', 'Ghana', 'Uruguay', 'Korea Republic']
+    groupsToRun = [groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH]
+    for group in groupsToRun:
+        for i in range(len(group) - 1):
+            team1 = group[i]
+            team1WC = worldCup[worldCup['Team'] == team1]
+            predictor = pd.DataFrame(columns=['att', 'mid', 'def', 'ovr'])
+            for j in range(i + 1, len(group)):
+                team2 = group[j]
+                team2WC = worldCup[worldCup['Team'] == team2]
+
+                predictor.at[0, 'att'] = team1WC['att'].get_values()[0] - team2WC['att'].get_values()[0]
+                predictor.at[0, 'mid'] = team1WC['mid'].get_values()[0] - team2WC['mid'].get_values()[0]
+                predictor.at[0, 'def'] = team1WC['def'].get_values()[0] - team2WC['def'].get_values()[0]
+                predictor.at[0, 'ovr'] = team1WC['ovr'].get_values()[0] - team2WC['ovr'].get_values()[0]
+                predictedVal = model.predict(predictor)
+                predictedVal[predictedVal <= -.0000000000001] = -1
+                predictedVal[predictedVal >= .0000000000001] = 1
+                predictedVal[(predictedVal < .0000000000001) & (predictedVal > -.0000000000001)] = 0
+                if predictedVal == 1:
+                    # team 1 wins
+                    worldCup.at[team1WC.index[0], 'Points'] += 3
+                elif predictedVal == 0:
+                    # draw
+                    worldCup.at[team1WC.index[0], 'Points'] += 1
+                    worldCup.at[team2WC.index[0], 'Points'] += 1
+                else:
+                    # team 2 wins
+                    worldCup.at[team2WC.index[0], 'Points'] += 3
+    return worldCup
+
+# get the teams advancing from from group stage
+def getTeamsAdvancing(worldCup):
+    pointsMost, pointsSec, ovrMost, ovrSec, topTeam, secTeam = 0, 0, 0, 0, None, None
+    groupIdx = 0
+    groupLetter = 'A'
+    teamsAdvancing = []
+    for i in range(len(worldCup)):
+        currPoints = worldCup.at[i, 'Points']
+        currOvr = worldCup.at[i, 'ovr']
+        currTeam = worldCup.at[i, 'Team']
+        if currPoints > pointsMost:
+            pointsMost = currPoints
+            ovrMost = currOvr
+            topTeam = currTeam
+        elif currPoints == pointsMost:
+            if currOvr > ovrMost:
+                pointsSec = pointsMost
+                ovrSec = ovrMost
+                secTeam = topTeam
+                pointsMost = currPoints
+                ovrMost = currOvr
+                topTeam = currTeam
+        elif currPoints > pointsSec or (currPoints == pointsSec and currOvr > ovrSec):
+            pointsSec = currPoints
+            ovrSec = currOvr
+            secTeam = currTeam
+        groupIdx += 1
+        if groupIdx == 4:
+            newGroup = [topTeam, secTeam]
+            teamsAdvancing.append(newGroup)
+            groupIdx = 0
+            pointsMost, pointsSec, ovrMost, ovrSec, topTeam, secTeam = 0, 0, 0, 0, None, None
+    return teamsAdvancing
+
+def simulateKnockOutGame(teamName1, teamName2):
+    predictor = pd.DataFrame(columns = ['att', 'mid', 'def', 'ovr'])
+    team1WC = worldCup[worldCup['Team'] == teamName1]
+    team2WC = worldCup[worldCup['Team'] == teamName2]
+    predictor.at[0,'att'] = team1WC['att'].get_values()[0] - team2WC['att'].get_values()[0]
+    predictor.at[0,'mid'] = team1WC['mid'].get_values()[0] - team2WC['mid'].get_values()[0]
+    predictor.at[0,'def'] = team1WC['def'].get_values()[0] - team2WC['def'].get_values()[0]
+    predictor.at[0,'ovr'] = team1WC['ovr'].get_values()[0] - team2WC['ovr'].get_values()[0]
+    predictedVal = model.predict(predictor)
+    predictedVal[predictedVal <= -.0000000000001] = -1
+    predictedVal[predictedVal >= .0000000000001] = 1
+    predictedVal[(predictedVal < .0000000000001) & (predictedVal > -.0000000000001)] = 0
+    if predictedVal == 1:
+        # teamName1 wins
+        return teamName1
+    elif predictedVal == -1:
+        # teamName2 wins
+        return teamName2
+    else:
+        if team1WC['ovr'].get_values()[0] > team2WC['ovr'].get_values()[0]:
+            # teamName1 wins in ET/PKs
+            return teamName1
+        else:
+            # teamName2 wins in ET/PKs
+            return teamName2
+
+def runKnockOutStage(teamsAdvancing):
+    a1 = teamsAdvancing[0][0]
+    a2 = teamsAdvancing[0][1]
+    b1 = teamsAdvancing[1][0]
+    b2 = teamsAdvancing[1][1]
+    c1 = teamsAdvancing[2][0]
+    c2 = teamsAdvancing[2][1]
+    d1 = teamsAdvancing[3][0]
+    d2 = teamsAdvancing[3][1]
+    e1 = teamsAdvancing[4][0]
+    e2 = teamsAdvancing[4][1]
+    f1 = teamsAdvancing[5][0]
+    f2 = teamsAdvancing[5][1]
+    g1 = teamsAdvancing[6][0]
+    g2 = teamsAdvancing[6][1]
+    h1 = teamsAdvancing[7][0]
+    h2 = teamsAdvancing[7][1]
+    leftSideTop = [[a1, b2], [c1, d2]]
+    leftSideBot = [[e1, f2], [g1, h2]]
+    leftSide = [leftSideTop, leftSideBot]
+
+    rightSideTop = [[d1, c2], [b1, a2]]
+    rightSideBot = [[f1, e2], [h1, g2]]
+    rightSide = [rightSideTop, rightSideBot]
+    knockOut = [leftSide, rightSide]
+    semis = []
+    for side in knockOut:
+        for quarter in side:
+            q1, q2 = None, None
+            qIdx = 0
+            for game in quarter:
+                predictor = pd.DataFrame(columns=['att', 'mid', 'def', 'ovr'])
+                team1 = game[0]
+                team2 = game[1]
+                winner = simulateKnockOutGame(team1, team2)
+                if qIdx == 0:
+                    q1 = winner
+                else:
+                    toSemis = simulateKnockOutGame(q1, winner)
+                    semis.append(toSemis)
+                qIdx += 1
+
+    final1 = simulateKnockOutGame(semis[0], semis[1])
+    final2 = simulateKnockOutGame(semis[2], semis[3])
+    champion = simulateKnockOutGame(final1, final2)
+    return champion
+
 # define the predict function which is going to predict the results from ml model based on the given values through html form
 def predict():
 
@@ -224,8 +417,11 @@ def predict():
         DEF32 = int(request.form['DEF32'])
         OVR32 = int(request.form['OVR32'])
         game = game.append({'Team': Team32, 'ATT': ATT32, 'MID': MID32, 'DEF': DEF32, 'OVR': OVR32}, ignore_index=True)
-        
-        prediction=model.predict([[game]])
+        worldCup = createWorldCupByGroup(game)
+        worldCup = runGroupStage(worldCup)
+        teamsAdvancing = getTeamsAdvancing(worldCup)
+        prediction = runKnockOutStage(teamsAdvancing)
+        #prediction=model.predict([[game]])
         
         # condition for invalid values
         if prediction == None:
